@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chaitanya K Hubballi // Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cyan: #00f5ff;
+    --pink: #ff2d78;
+    --yellow: #f5e642;
+    --bg: #050810;
+    --bg2: #090d1a;
+    --grid: rgba(0,245,255,0.04);
+    --border: rgba(0,245,255,0.18);
+    --text: #c8d8e8;
+    --glow-cyan: 0 0 8px #00f5ff, 0 0 20px rgba(0,245,255,0.4);
+    --glow-pink: 0 0 8px #ff2d78, 0 0 20px rgba(255,45,120,0.4);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(5,8,16,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.05rem;
+    color: var(--cyan); text-shadow: var(--glow-cyan); letter-spacing: 2px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.78rem;
+    color: var(--text); text-decoration: none; letter-spacing: 1px;
+    text-transform: uppercase; transition: color .2s, text-shadow .2s;
+  }
+  .nav-links a:hover { color: var(--cyan); text-shadow: var(--glow-cyan); }
+
+  /* LAYOUT */
+  section {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-label {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 4px; color: var(--pink); text-transform: uppercase;
+    margin-bottom: 0.4rem; text-shadow: var(--glow-pink);
+  }
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700;
+    color: #fff; margin-bottom: 2.5rem;
+    position: relative; display: inline-block;
+  }
+  .section-title::after {
+    content: ''; position: absolute; left: 0; bottom: -8px;
+    width: 60%; height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    box-shadow: var(--glow-cyan);
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding-top: 6rem; max-width: 1100px; margin: 0 auto;
+  }
+  .hero-inner { position: relative; }
+  .glitch-block {
+    position: absolute; right: -2rem; top: -1rem;
+    font-family: 'Orbitron', monospace; font-size: 9rem; font-weight: 900;
+    color: transparent; -webkit-text-stroke: 1px rgba(0,245,255,0.06);
+    user-select: none; pointer-events: none; line-height: 1;
+  }
+  .hero-tag {
+    font-family: 'Share Tech Mono', monospace; font-size: 0.78rem;
+    color: var(--cyan); letter-spacing: 3px; text-shadow: var(--glow-cyan);
+    margin-bottom: 1rem;
+    opacity: 0; animation: fadeUp .6s .2s forwards;
+  }
+  .hero-name {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.4rem, 7vw, 5rem); font-weight: 900; line-height: 1.05;
+    color: #fff; opacity: 0; animation: fadeUp .6s .4s forwards;
+  }
+  .hero-name span { color: var(--cyan); text-shadow: var(--glow-cyan); }
+  .hero-sub {
+    font-size: 1.1rem; font-weight: 300; color: var(--text);
+    max-width: 560px; margin-top: 1.2rem;
+    opacity: 0; animation: fadeUp .6s .6s forwards;
+  }
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.8rem;
+    opacity: 0; animation: fadeUp .6s .8s forwards;
+  }
+  .badge {
+    font-family: 'Share Tech Mono', monospace; font-size: .7rem;
+    padding: .3rem .8rem; border: 1px solid var(--border);
+    background: rgba(0,245,255,.05); color: var(--cyan); letter-spacing: 1px;
+    border-radius: 2px; transition: background .2s, box-shadow .2s;
+  }
+  .badge:hover { background: rgba(0,245,255,.12); box-shadow: var(--glow-cyan); }
+  .hero-cta {
+    margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .6s 1s forwards;
+  }
+  .btn {
+    font-family: 'Orbitron', monospace; font-size: .72rem; font-weight: 700;
+    letter-spacing: 2px; padding: .75rem 1.8rem; text-decoration: none;
+    border: 2px solid; transition: all .2s; text-transform: uppercase;
+  }
+  .btn-primary { background: var(--cyan); border-color: var(--cyan); color: var(--bg); box-shadow: var(--glow-cyan); }
+  .btn-primary:hover { background: transparent; color: var(--cyan); }
+  .btn-secondary { background: transparent; border-color: var(--pink); color: var(--pink); }
+  .btn-secondary:hover { background: var(--pink); color: var(--bg); box-shadow: var(--glow-pink); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text p { font-size: 1.02rem; font-weight: 300; line-height: 1.85; margin-bottom: 1rem; }
+  .about-text p strong { color: var(--cyan); font-weight: 600; }
+
+  .skills-panel {
+    background: var(--bg2); border: 1px solid var(--border);
+    padding: 1.5rem; position: relative;
+  }
+  .skills-panel::before {
+    content: 'SKILLS.EXE';
+    position: absolute; top: -.6rem; left: 1rem;
+    font-family: 'Share Tech Mono', monospace; font-size: .63rem;
+    background: var(--bg2); padding: 0 .4rem;
+    color: var(--yellow); letter-spacing: 2px;
+  }
+  .skill-row { margin-bottom: 1.1rem; }
+  .skill-label {
+    display: flex; justify-content: space-between;
+    font-family: 'Share Tech Mono', monospace; font-size: .7rem;
+    color: var(--cyan); margin-bottom: .3rem; letter-spacing: 1px;
+  }
+  .skill-bar { height: 4px; background: rgba(255,255,255,.07); border-radius: 2px; overflow: hidden; }
+  .skill-fill {
+    height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink));
+    box-shadow: var(--glow-cyan); border-radius: 2px;
+    width: 0; transition: width 1.4s cubic-bezier(.17,.67,.4,1);
+  }
+
+  /* CARDS */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.4rem; }
+  .card {
+    background: var(--bg2); border: 1px solid var(--border);
+    padding: 1.5rem; position: relative; overflow: hidden;
+    transition: border-color .25s, transform .25s;
+    text-decoration: none; display: block; color: inherit;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0;
+    background: linear-gradient(180deg, var(--cyan), var(--pink));
+    transition: height .3s;
+  }
+  .card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+  .card:hover::before { height: 100%; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .6rem; }
+  .card-name { font-family: 'Orbitron', monospace; font-size: .85rem; font-weight: 700; color: #fff; }
+  .ctf-card .card-name { color: var(--cyan); }
+  .card-lang {
+    font-family: 'Share Tech Mono', monospace; font-size: .63rem;
+    color: var(--yellow); background: rgba(245,230,66,.08);
+    border: 1px solid rgba(245,230,66,.2); padding: .15rem .5rem;
+    border-radius: 2px; white-space: nowrap;
+  }
+  .card-desc { font-size: .88rem; font-weight: 300; color: var(--text); margin-bottom: 1rem; line-height: 1.5; }
+  .card-meta { display: flex; gap: 1rem; font-family: 'Share Tech Mono', monospace; font-size: .63rem; color: rgba(200,216,232,.45); }
+
+  /* STATE MESSAGES */
+  .loading-msg { font-family: 'Share Tech Mono', monospace; font-size: .82rem; color: var(--cyan); padding: 2rem 0; opacity: .7; }
+  .error-msg   { font-family: 'Share Tech Mono', monospace; font-size: .82rem; color: var(--pink); padding: 2rem 0; }
+
+  /* SOCIALS */
+  .social-grid { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 1rem; }
+  .social-link {
+    display: flex; align-items: center; gap: .8rem;
+    padding: 1rem 1.5rem; border: 1px solid var(--border);
+    background: var(--bg2); text-decoration: none; color: var(--text);
+    font-family: 'Share Tech Mono', monospace; font-size: .78rem; letter-spacing: 1px;
+    transition: all .2s; position: relative; overflow: hidden;
+  }
+  .social-link::after {
+    content: ''; position: absolute; inset: 0;
+    background: var(--cyan); opacity: 0; transition: opacity .2s;
+  }
+  .social-link:hover { color: var(--bg); border-color: var(--cyan); }
+  .social-link:hover::after { opacity: 1; }
+  .social-link span, .social-link svg { position: relative; z-index: 1; }
+  .social-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 2; text-align: center; padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: 'Share Tech Mono', monospace; font-size: .68rem;
+    color: rgba(200,216,232,.28); letter-spacing: 2px;
+  }
+
+  .cyber-divider {
+    position: relative; z-index: 2; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: .68rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .glitch-block { display: none; }
+    section { padding: 4rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">XENON224</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#writeups">Write-ups</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="glitch-block">CK</div>
+    <div class="hero-tag">// INITIALIZING PROFILE...</div>
+    <h1 class="hero-name">CHAITANYA<br/><span>K HUBBALLI</span></h1>
+    <p class="hero-sub">Security researcher · Tinkerer · Builder · CTF enthusiast — figuring out how the world works, one rabbit hole at a time.</p>
+    <div class="hero-badges">
+      <span class="badge">CTF PLAYER</span>
+      <span class="badge">CYBERSECURITY</span>
+      <span class="badge">OPEN SOURCE</span>
+      <span class="badge">FULL-STACK</span>
+      <span class="badge">TINKERER</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<div class="cyber-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// 01 — ABOUT</div>
+  <h2 class="section-title">WHO AM I</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I pick up new things by actually doing them — tinkering, breaking stuff, and figuring out why it broke. That's how I learn best, whether it's a CTF room, a new language, or something in CS I've never touched before.</p>
+      <p>I don't stick to one area. I like jumping across different branches — security, scripting, small projects — just to understand how things work at a broader level. Most of my projects are hobby-driven or built to scratch some itch I had.</p>
+      <p>I'm also decent at <strong>explaining things</strong> — breaking down what I know into something another person can actually follow. That shows up in my write-ups and how I approach documentation.</p>
+    </div>
+    <div class="skills-panel reveal">
+      <div class="skill-row">
+        <div class="skill-label"><span>CYBERSECURITY</span><span>85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>PYTHON / SCRIPTING</span><span>80%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>LINUX / BASH</span><span>78%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>NETWORKING</span><span>70%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label"><span>COMMUNICATION</span><span>92%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cyber-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// 02 — PROJECTS</div>
+  <h2 class="section-title reveal">GITHUB PROJECTS</h2>
+  <p style="font-size:.88rem;color:rgba(200,216,232,.5);font-family:'Share Tech Mono',monospace;margin-bottom:2rem;" class="reveal">
+    // Auto-synced · <a href="https://github.com/Xenon224" target="_blank" style="color:var(--cyan);text-decoration:none;">github.com/Xenon224</a>
+  </p>
+  <div class="cards-grid" id="projects-grid">
+    <div class="loading-msg">// FETCHING REPOS FROM GITHUB...</div>
+  </div>
+</section>
+
+<div class="cyber-divider"></div>
+
+<!-- WRITE-UPS -->
+<section id="writeups">
+  <div class="section-label">// 03 — CTF WRITE-UPS</div>
+  <h2 class="section-title reveal">WRITE-UPS</h2>
+  <p style="font-size:.88rem;color:rgba(200,216,232,.5);font-family:'Share Tech Mono',monospace;margin-bottom:2rem;" class="reveal">
+    // Auto-synced · <a href="https://github.com/Xenon224/ctf-writeups" target="_blank" style="color:var(--cyan);text-decoration:none;">github.com/Xenon224/ctf-writeups</a>
+  </p>
+  <div class="cards-grid" id="writeups-grid">
+    <div class="loading-msg">// FETCHING WRITE-UPS...</div>
+  </div>
+</section>
+
+<div class="cyber-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// 04 — CONTACT</div>
+  <h2 class="section-title reveal">FIND ME ON</h2>
+  <div class="social-grid reveal">
+
+    <a class="social-link" href="https://github.com/Xenon224" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+      <span>GITHUB</span>
+    </a>
+
+    <a class="social-link" href="https://www.linkedin.com/in/chaitanya-k-hubballi-600234304/" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <span>LINKEDIN</span>
+    </a>
+
+    <a class="social-link" href="https://www.instagram.com/chaitanya_k_1/" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      <span>INSTAGRAM</span>
+    </a>
+
+    <a class="social-link" href="https://tryhackme.com/p/Xenon224" target="_blank">
+      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M10.705 0C7.54 0 4.902 2.285 4.374 5.297a4.43 4.43 0 00-.598-.04C1.69 5.257 0 6.94 0 9.014c0 2.075 1.692 3.757 3.776 3.757h6.93V0zm2.59 0v12.771h6.93C22.308 12.771 24 11.09 24 9.014c0-2.074-1.692-3.757-3.776-3.757a4.43 4.43 0 00-.598.04C19.098 2.285 16.46 0 13.295 0zm-2.59 14.243v9.569l4.97-4.785-4.97-4.784z"/></svg>
+      <span>TRYHACKME</span>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  &lt;/&gt; CHAITANYA K HUBBALLI // XENON224 // 2025
+</footer>
+
+<script>
+// ── GitHub Projects ──
+async function fetchProjects() {
+  const grid = document.getElementById('projects-grid');
+  try {
+    const res = await fetch('https://api.github.com/users/Xenon224/repos?sort=updated&per_page=12&type=public');
+    if (!res.ok) throw new Error();
+    const repos = await res.json();
+    const filtered = repos.filter(r => r.name !== 'ctf-writeups' && !r.fork);
+    if (!filtered.length) {
+      grid.innerHTML = '<div class="loading-msg">// NO PUBLIC REPOS FOUND YET — CHECK BACK SOON.</div>';
+      return;
+    }
+    grid.innerHTML = filtered.map(r => {
+      const rawName = r.name.replace(/-/g,' ').toUpperCase();
+      const displayName = rawName.length > 22 ? rawName.slice(0, 22) + '…' : rawName;
+      return `
+      <a class="card reveal" href="${r.html_url}" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">${displayName}</div>
+          ${r.language ? `<span class="card-lang">${r.language}</span>` : ''}
+        </div>
+        <p class="card-desc">${r.description || 'No description provided.'}</p>
+        <div class="card-meta">
+          <span>📅 ${new Date(r.updated_at).toLocaleDateString('en-GB',{month:'short',year:'numeric'})}</span>
+        </div>
+      </a>`;
+    }).join('');
+    observeReveal();
+  } catch(e) {
+    grid.innerHTML = `<div class="error-msg">// FAILED TO LOAD — <a href="https://github.com/Xenon224" target="_blank" style="color:var(--cyan)">VIEW ON GITHUB →</a></div>`;
+  }
+}
+
+// ── CTF Write-ups (folders in repo) ──
+async function fetchWriteups() {
+  const grid = document.getElementById('writeups-grid');
+  try {
+    const res = await fetch('https://api.github.com/repos/Xenon224/ctf-writeups/contents/');
+    if (!res.ok) throw new Error();
+    const contents = await res.json();
+    const folders = Array.isArray(contents) ? contents.filter(i => i.type === 'dir') : [];
+    if (!folders.length) {
+      grid.innerHTML = '<div class="loading-msg">// NO WRITE-UPS YET — MORE COMING SOON.</div>';
+      return;
+    }
+    grid.innerHTML = folders.map(f => `
+      <a class="card ctf-card reveal" href="${f.html_url}" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">${f.name.replace(/-/g,' ').toUpperCase()}</div>
+          <span class="card-lang">THM</span>
+        </div>
+        <p class="card-desc">TryHackMe room write-up — recon, exploitation steps, flags, and key takeaways.</p>
+        <div class="card-meta"><span>📁 ${f.name}</span></div>
+      </a>`).join('');
+    observeReveal();
+  } catch(e) {
+    grid.innerHTML = `<div class="error-msg">// FAILED TO LOAD — <a href="https://github.com/Xenon224/ctf-writeups" target="_blank" style="color:var(--cyan)">VIEW ON GITHUB →</a></div>`;
+  }
+}
+
+// ── Reveal on scroll ──
+function observeReveal() {
+  const els = document.querySelectorAll('.reveal:not(.visible)');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+}
+
+// ── Skill bars ──
+function animateSkills() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.width = e.target.dataset.width + '%'; obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skill-fill').forEach(f => obs.observe(f));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchProjects();
+  fetchWriteups();
+  observeReveal();
+  animateSkills();
+});
+</script>
+</body>
+</html>
