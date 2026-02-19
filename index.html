@@ -403,7 +403,7 @@ async function fetchProjects() {
     const res = await fetch('https://api.github.com/users/Xenon224/repos?sort=updated&per_page=12&type=public');
     if (!res.ok) throw new Error();
     const repos = await res.json();
-    const filtered = repos.filter(r => r.name !== 'ctf-writeups' && r.name.toLowerCase() !== 'xenon224.github.io' && !r.fork);
+    const filtered = repos.filter(r => r.name !== 'ctf-writeups' && r.name.toLowerCase() !== 'Xenon224.github.io' && !r.fork);
     if (!filtered.length) {
       grid.innerHTML = '<div class="loading-msg">// NO PUBLIC REPOS FOUND YET — CHECK BACK SOON.</div>';
       return;
