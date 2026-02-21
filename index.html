@@ -284,8 +284,6 @@
     <div class="hero-badges">
       <span class="badge">CTF PLAYER</span>
       <span class="badge">CYBERSECURITY</span>
-      <span class="badge">OPEN SOURCE</span>
-      <span class="badge">FULL-STACK</span>
       <span class="badge">TINKERER</span>
     </div>
     <div class="hero-cta">
@@ -383,10 +381,6 @@
       <span>INSTAGRAM</span>
     </a>
 
-    <a class="social-link" href="https://tryhackme.com/p/Xenon224" target="_blank">
-      <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M10.705 0C7.54 0 4.902 2.285 4.374 5.297a4.43 4.43 0 00-.598-.04C1.69 5.257 0 6.94 0 9.014c0 2.075 1.692 3.757 3.776 3.757h6.93V0zm2.59 0v12.771h6.93C22.308 12.771 24 11.09 24 9.014c0-2.074-1.692-3.757-3.776-3.757a4.43 4.43 0 00-.598.04C19.098 2.285 16.46 0 13.295 0zm-2.59 14.243v9.569l4.97-4.785-4.97-4.784z"/></svg>
-      <span>TRYHACKME</span>
-    </a>
 
   </div>
 </section>
@@ -403,7 +397,7 @@ async function fetchProjects() {
     const res = await fetch('https://api.github.com/users/Xenon224/repos?sort=updated&per_page=12&type=public');
     if (!res.ok) throw new Error();
     const repos = await res.json();
-    const filtered = repos.filter(r => r.name !== 'ctf-writeups' && r.name.toLowerCase() !== 'Xenon224.github.io' && !r.fork);
+    const filtered = repos.filter(r => r.name !== 'ctf-writeups' && r.name.toLowerCase() !== 'xenon224.github.io' && !r.fork);
     if (!filtered.length) {
       grid.innerHTML = '<div class="loading-msg">// NO PUBLIC REPOS FOUND YET — CHECK BACK SOON.</div>';
       return;
